@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	gindump "github.com/tpkeeper/gin-dump"
 	"io"
 	"os"
 	"vito-video/controller"
@@ -24,7 +25,7 @@ func main() {
 
 	server := gin.New()
 
-	server.Use(gin.Recovery(), middlewares.Logger())
+	server.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
 
 	server.GET("/videos", func(ctx *gin.Context) {
 		ctx.JSON(200, videoController.FindAll())
